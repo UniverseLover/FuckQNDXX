@@ -7,7 +7,7 @@
         content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
-<body background="./img/bg.jpg">
+<body background={{url_for('.static',_external=True,filename="img/bg.jpg")}}>
     <style>
         .smart-green {
             margin-left: auto;
@@ -103,46 +103,33 @@
             margin-bottom: 10px;
         }
     </style>
-        <form class="smart-green">
+        <form class="smart-green" method="post">
             <table  border="1"  border="red" width="1500">
             <h1>青年大学习截图获取</h1>
             <tr>
                   <td height="50" width="200">季数：</td>
-                  <td><input class="textarea" type="number" id="s" value="请填写" maxlength="2" size="50" pattern="[0-9]" /></td>
+                  <td><input class="textarea" name="s" type="number" id="s" value="7" maxlength="2" size="50" pattern="[0-9]" /></td>
+				{% if message %}
+					<p style="color:red">{{ message }}</p>
+				{% endif %}
+				<h3 style="display:none" id="thanks">谢谢您</h3>
             </tr>
             <tr>
                   <td height="50" width="200">期数：</td>
-                 <td><input class="textarea" type="number" id="e" value="请填写期数" maxlength="2" size="50" pattern="[0-9]" /></td> 
+                 <td><input class="textarea" name="e" type="number" id="e"  maxlength="2" size="50" pattern="[0-9]" /></td>
+				
             </tr>
                
 
             <table>
-            <button class="button" type="button" onclick="javascript:fun1()">要截图！</button>
+			<button class="button" type="submit" >要截图！</button>
             <p>技术交流：1439347960</p>
             <p>本网页只用于技术交流，使用后果自行承担</p>
-            <button class="button" type="button" onclick="javascript:fun2()">打赏作者</button>
+            <button class="button" type="button" onclick="javascript:document.getElementById('wechat').style.display='inline';document.getElementById('thanks').style.display='inline'">打赏作者</button>
+		    <img src={{url_for('.static',_external=True,filename="img/wechat.png")}} style="display:none " id="wechat" width="111.8" height="153.4"/>
     </form>
     
-    <script>
-        convert = ['0', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'];
-
-        function fun1() {
-
-            var s = document.getElementById("s").value;
-            var e = document.getElementById("e").value;
-            var url = `http://h5.cyol.com/special/daxuexi/daxuexi${s}${realE(e)}${e}/images/end.jpg`
-            window.location.href = url;
-
-        }
-
-        function fun2(){
-            window.location.href = "./img/wechat.png"
-        }
-
-        function realE(e) {
-            return convert[e];
-        }
-    </script>
+    
 </body>
 
 
